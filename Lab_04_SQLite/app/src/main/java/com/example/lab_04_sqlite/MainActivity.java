@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 editAVGScore.setText("");
             }
         });
+
+        
+
     }
 
     @Override
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 values.put("score", score);
                 database.update("students", values, "id = ?", new String[]{String.valueOf(student.getId())});
                 studentAdapter.updateStudent(new Student(student.getId(), name, age, score));
+                studentAdapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {

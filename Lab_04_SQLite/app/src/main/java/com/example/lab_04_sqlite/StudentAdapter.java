@@ -49,6 +49,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentViewHolder> {
         if (index != -1) {
             students.set(index, student);
             notifyItemChanged(index);
+
         }
     }
 
