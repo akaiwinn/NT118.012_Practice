@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -131,50 +135,106 @@ public class MainActivity extends AppCompatActivity {
         return animation;
     }
     private Animation initRotateAnimation() {
-        Animation animation = new ScaleAnimation(0.0f, 360.0f, 0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(3000);
+        Animation animation = new RotateAnimation(
+                0.0f, 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+        );
+        animation.setDuration(1000);
         animation.setFillAfter(true);
         animation.setAnimationListener(animationListener);
         return animation;
     }
+
     private Animation initMoveAnimation() {
-        Animation animation = new ScaleAnimation(0.0f, 360.0f, 0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        Animation animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f
+        );
         animation.setDuration(3000);
         animation.setFillAfter(true);
         animation.setAnimationListener(animationListener);
         return animation;
     }
+
     private Animation initSlideUpAnimation() {
-        Animation animation = new ScaleAnimation(0.0f, 360.0f, 0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        Animation animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f
+        );
         animation.setDuration(3000);
         animation.setFillAfter(true);
         animation.setAnimationListener(animationListener);
         return animation;
     }
+
     private Animation initBounceAnimation() {
-        Animation animation = new ScaleAnimation(0.0f, 360.0f, 0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(3000);
-        animation.setFillAfter(true);
-        animation.setAnimationListener(animationListener);
-        return animation;
+        AnimationSet animationSet = new AnimationSet(true);
+
+        // Bounce Scale Animation
+        Animation bounceScale = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        bounceScale.setDuration(500);
+        bounceScale.setInterpolator(new BounceInterpolator());
+
+        // Bounce Translate Animation (optional)
+        Animation bounceTranslate = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f
+        );
+        bounceTranslate.setDuration(500);
+        bounceTranslate.setInterpolator(new BounceInterpolator());
+
+        animationSet.addAnimation(bounceScale);
+        animationSet.addAnimation(bounceTranslate); // You can omit this line if you don't want translation
+
+        animationSet.setFillAfter(true);
+        animationSet.setAnimationListener(animationListener);
+
+        return animationSet;
     }
+
     private Animation initCombineAnimation() {
-        Animation animation = new ScaleAnimation(0.0f, 360.0f, 0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(3000);
-        animation.setFillAfter(true);
-        animation.setAnimationListener(animationListener);
-        return animation;
+        AnimationSet animationSet = new AnimationSet(true);
+
+        // Scale Animation
+        Animation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(1000);
+
+        // Translate Animation
+        Animation translateAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f
+        );
+        translateAnimation.setDuration(1000);
+
+        // Alpha Animation
+        Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setDuration(1000);
+
+        // Add the animations to the AnimationSet
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(translateAnimation);
+        animationSet.addAnimation(alphaAnimation);
+
+        // Set common properties for the AnimationSet
+        animationSet.setFillAfter(true);
+        animationSet.setAnimationListener(animationListener);
+
+        return animationSet;
     }
+
     private void findViewsByIds() {
         ivUitLogo = (ImageView) findViewById(R.id.iv_uit_logo);
         btnFadeInXml = (Button) findViewById(R.id.btn_fade_in_xml);
