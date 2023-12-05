@@ -1,16 +1,16 @@
 # UIT - Information System - NT118.012_Practice
 This is the very first practicing lesson about Android Application Development </br>
-** Note: ** </br>
-*All labs are using Android Studio Giraffe 2022.3.1 Patch 2 *
+**Note:** </br>
+*All labs are using Android Studio Giraffe 2022.3.1 Patch 2*
 
 ## 💼 Labs in NT118.012.2 🎓
 ```
 Labs are using gradle build API 32 or 33 or 34 with most SDK version 33
 ```
 ## Change API and SDK version
-```
-[Link](https://www.youtube.com/watch?v=W1nMZiA-JTQ)
-```
+*Follow this video to know*
+[How to Change the API SDK version in Android Studio](https://www.youtube.com/watch?v=W1nMZiA-JTQ)
+
 
 ## Lab 1 - Basic Layouts
 - FrameLayout + LinearLayout + TableLayout + RelativeLayout + ConstraintLayout
